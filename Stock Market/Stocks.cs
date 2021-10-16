@@ -10,10 +10,12 @@ namespace Stock_Market
     {
         public string Name { get; set; }
         public int Value { get; set; }
-        public Stocks(string name, int values)
+        public int TimeUnit { get; }
+        public Stocks(string name, int values, int timeUnit)
         {
             Name = name;
             Value = values;
+            TimeUnit = timeUnit;
         }
         public Stocks()
         {

@@ -17,7 +17,7 @@ namespace Stock_Market
             {
                 CurrentStocks.Add(new Stocks(
                     companies[random.Next(0, companies.Length)],
-                    random.Next(10, 100)));
+                    random.Next(10, 100), i));
             }
         }
     }

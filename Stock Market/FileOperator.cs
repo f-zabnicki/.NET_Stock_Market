@@ -38,14 +38,23 @@ namespace Stock_Market
                 serializer.Serialize(creator, dataToSave);
             }
         }
-        static public List<Stocks> GetPurchaseHistory()
+        static public void GetPurchaseHistory()
         {
+            List<Stocks> history = new List<Stocks>();
             XmlSerializer deserializer = new XmlSerializer(typeof(List<Stocks>));
             string path = GetPathLocation() + "\\purchased.xml";
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException("No purchase history found");
+            }
             using (TextReader reader = new StreamReader(path))
             {
                 object obj = deserializer.Deserialize(reader);
-                return (List<Stocks>)obj;
+                history = (List<Stocks>)obj;
+            }
+            foreach (var item in history)
+            {
+                Console.WriteLine($"{item.Name} {item.Value}");
             }
         }
     }

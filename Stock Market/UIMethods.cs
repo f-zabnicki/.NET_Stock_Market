@@ -54,35 +54,58 @@ namespace Stock_Market
         }
         private void ShowStocks()
         {
-            foreach (var item in Stocks)
+            Console.WriteLine("Do you want to see stocks in time period (y/n)?");
+            switch (Console.ReadKey().KeyChar)
+            {
+                case 'y':
+                    ShowStockInTimePeriod();
+                    break;
+                case 'n':
+                    foreach (var item in Stocks)
+                    {
+                        Console.WriteLine($"{item.Name} {item.Value}");
+                    }
+                    Console.WriteLine("Press any button to back to menu");
+                    Console.ReadKey();
+                    Console.Clear();
+                    ShowMenu();
+                    break;
+                default:
+                    Console.WriteLine("Not implemented key, Try again.");
+                    ShowStocks();
+                    break;
+            }
+        }
+
+        private void ShowStockInTimePeriod()
+        {
+            Console.WriteLine("Type in time period (from-to)");
+            string input = Console.ReadLine();
+            var fromTo = input.Split('-');
+            var condition = Stocks.Where<Stocks>(o => o.TimeUnit >= int.Parse(fromTo[0]) && o.TimeUnit <= int.Parse(fromTo[1]));
+            var selected = new List<Stocks>(condition);
+            foreach (var item in selected)
             {
                 Console.WriteLine($"{item.Name} {item.Value}");
             }
-            Console.WriteLine("Press any button to back to menu");
-            Console.ReadKey();
+            Console.WriteLine("Press any button to back to main menu");
+            Console.ReadLine();
             Console.Clear();
             ShowMenu();
         }
+
         private void SetWatcher()
         {
             Console.WriteLine("Set watcher:");
-            var watcher = Console.ReadLine();
-            Watcher = new Watcher(watcher);
+            Watcher = new Watcher(Console.ReadLine());
             Console.Clear();
-            if (Watcher.StockName == "")
-                Console.WriteLine($"Watcher set for stocks under {Watcher.Value} has been set");
-            else
-                Console.WriteLine($"Watcher for {Watcher.StockName} for value under {Watcher.Value} has been set");
+            Watcher.GetInfo();
             ShowMenu();
         }
         private void PurchasedHistory()
         {
             Console.WriteLine("Recenty purchased");
-            var orders = FileOperator.GetPurchaseHistory();
-            foreach (var item in orders)
-            {
-                Console.WriteLine($"{item.Name} {item.Value}");
-            }
+            FileOperator.GetPurchaseHistory();
             Console.WriteLine("Press any button to back to menu");
             Console.ReadLine();
             Console.Clear();

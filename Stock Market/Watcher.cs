@@ -32,5 +32,12 @@ namespace Stock_Market
             }
             throw new NotSupportedException("Wrong values for watcher. Please check syntax and try again");
         }
+        public void GetInfo()
+        {
+            if (StockName == "")
+                Console.WriteLine($"Watcher set for stocks under {Value} has been set");
+            else
+                Console.WriteLine($"Watcher for {StockName} for value under {Value} has been set");
+        }
     }
 }
