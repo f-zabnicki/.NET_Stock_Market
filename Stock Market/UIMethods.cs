@@ -96,12 +96,14 @@ namespace Stock_Market
 
         private void SetWatcher()
         {
+            ShowAvailableStocks();
             Console.WriteLine("Set watcher:");
             Watcher = new Watcher(Console.ReadLine());
             Console.Clear();
             Watcher.GetInfo();
             ShowMenu();
         }
+
         private void PurchasedHistory()
         {
             Console.WriteLine("Recenty purchased");
@@ -114,6 +116,16 @@ namespace Stock_Market
         private static void RunTheStockMarket(List<Stocks> stocks, Watcher setWatcher)
         {
             StartStockMarket.Run(stocks, setWatcher);
+        }
+        private void ShowAvailableStocks()
+        {
+            var companiesNames = FileOperator.ReadBaseInputFile();
+            Console.WriteLine("Available stocks to set watcher for:");
+            foreach (var item in companiesNames)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("---------------------");
         }
     }
 }

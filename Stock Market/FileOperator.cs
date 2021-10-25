@@ -45,7 +45,8 @@ namespace Stock_Market
             string path = GetPathLocation() + "\\purchased.xml";
             if (!File.Exists(path))
             {
-                throw new FileNotFoundException("No purchase history found");
+                Console.WriteLine("No purchase history found.");
+                return;
             }
             using (TextReader reader = new StreamReader(path))
             {
